@@ -47,7 +47,7 @@ app.get(api,(req,res)=>{
     })
 })
 app.get(api+'/download' , (req,res)=>{
-    let file = req.query
+    let file = req.query.path
     res.download(join(resolve(),file) , 'qr.svg')
 })
 app.listen(port,console.log(`server is live at ${port}`))
