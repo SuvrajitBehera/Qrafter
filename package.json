@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SuvrajitBehera/Qrafter#readme",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "express": "^5.1.0",
     "qr-image": "^3.2.0"
   }

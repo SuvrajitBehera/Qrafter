@@ -1,15 +1,14 @@
-import { rejects } from 'assert';
+import bodyParser from 'body-parser';
 import express from 'express'
 import {createWriteStream , readFile} from 'fs'
-import { resolve } from 'path';
 import {image} from 'qr-image'
-
+import {resolve , join} from 'path' 
 function createQR(URL){
     return new Promise((res,rej)=>{
         if(res){
             let qr_svg = image(URL,{type : 'svg'});
-            qr_svg.pipe(createWriteStream(URL+'.svg'));
-            res(URL+'.svg')
+            qr_svg.pipe(createWriteStream('qr.svg'));
+            res('qr.svg')
         }
         else{
             rej('Error')
@@ -30,10 +29,24 @@ function generateSvg(data){
         }
     })
 }
-createQR('Hey')
-.then((data)=>{
-    return generateSvg(data)
+const app = express()
+const port = 3000;
+const api = '/api'
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.static(join(resolve('..'),'Frontend','public')))
+
+app.get('/' ,(req,res)=>{
+    res.sendFile(join(resolve('..'),'Frontend','index.html'))
 })
-.then((data)=>{
-    console.log(typeof data)
+app.get(api,(req,res)=>{
+    let svgData
+    const url = req.query.url;
+    createQR(url).then((data)=>{
+        return generateSvg(data)
+    })
+    .then((data)=>{
+        console.log(data)
+        res.send(JSON.stringify(data))
+    })
 })
+app.listen(port,console.log(`server is live at ${port}`))
