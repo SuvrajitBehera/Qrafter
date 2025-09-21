@@ -3,12 +3,14 @@ import express from 'express'
 import {createWriteStream , readFile} from 'fs'
 import {image} from 'qr-image'
 import {resolve , join} from 'path' 
+let imgCount = 0
 function createQR(URL){
     return new Promise((res,rej)=>{
         if(res){
+            imgCount++;
             let qr_svg = image(URL,{type : 'svg'});
-            qr_svg.pipe(createWriteStream('qr.svg'));
-            res('qr.svg')
+            qr_svg.pipe(createWriteStream(join(resolve(),'data','qr'+imgCount+'.svg')));
+            res('qr'+imgCount+'.svg')
         }
         else{
             rej('Error')
@@ -17,17 +19,12 @@ function createQR(URL){
 }
 
 function generateSvg(data){
-    return new Promise((resolve , rejects)=>{
-        if(resolve){
-            readFile(('./'+data),'utf8' , (err, data)=>{
-                if(err) throw err;
-                resolve(data)
-            })
-        }
-        else{
-            rejects('File Not Found')
-        }
+    const imagePath = '/data/'
+    app.get(imagePath+data , (req,res)=>{
+        res.sendFile(join(resolve(),'data',data))
     })
+    return (imagePath+data)
+    
 }
 const app = express()
 const port = 3000;
@@ -48,5 +45,9 @@ app.get(api,(req,res)=>{
         console.log(data)
         res.send(JSON.stringify(data))
     })
+})
+app.get(api+'/download' , (req,res)=>{
+    let file = req.query
+    res.download(join(resolve(),file) , 'qr.svg')
 })
 app.listen(port,console.log(`server is live at ${port}`))
