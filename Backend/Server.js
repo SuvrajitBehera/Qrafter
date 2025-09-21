@@ -36,13 +36,11 @@ app.get('/' ,(req,res)=>{
     res.sendFile(join(resolve('..'),'Frontend','index.html'))
 })
 app.get(api,(req,res)=>{
-    let svgData
     const url = req.query.url;
     createQR(url).then((data)=>{
         return generateSvg(data)
     })
     .then((data)=>{
-        console.log(data)
         res.send(JSON.stringify(data))
     })
 })
