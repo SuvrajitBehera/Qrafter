@@ -57,3 +57,19 @@ body{
 #download{
     background-color: #5CA9F2;
 }
+@media (min-width: 1024px) {
+    #container{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    h2{
+        width: 100%;
+    }
+    #qr-container{
+        order: 1;
+        width: 20%;
+    }
+    #text-container{
+        width: 70%;
+    }
+}
