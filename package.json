@@ -1,0 +1,24 @@
+{
+  "name": "qrafter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./Backend/Server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuvrajitBehera/Qrafter.git"
+  },
+  "author": "Suvrajit Behera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SuvrajitBehera/Qrafter/issues"
+  },
+  "homepage": "https://github.com/SuvrajitBehera/Qrafter#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "qr-image": "^3.2.0"
+  }
+}
