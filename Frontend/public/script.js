@@ -11,8 +11,10 @@ document.querySelector('#download').addEventListener('click',()=>{
 function getQr(){
     let url = document.querySelector('#link-box').value;
     if(url != ''){
-        fetch('http://localhost:3000/api?url='+url).then((data)=> data.json()).then(data => {
-            document.querySelector('#svg').innerHTML = '<img src=".'+data+'"/>'
+        fetch('http://localhost:3000/api?url='+url)
+        .then((data)=> data.json()).then(data => {
+            console.log(data)
+            document.querySelector('#svg').innerHTML = '<img src=".'+data.url+'"/>'
             path = data;
         })
         document.querySelector('#qr-container').style.display = 'flex';

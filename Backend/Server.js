@@ -41,7 +41,9 @@ app.get(api,(req,res)=>{
         return generateSvg(data)
     })
     .then((data)=>{
-        res.send(JSON.stringify(data))
+        let imgData = {url: data}
+        res.setHeader("Content-Type" , "application/json")
+        res.send(JSON.stringify(imgData))
     })
 })
 app.get(api+'/download' , (req,res)=>{
