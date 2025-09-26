@@ -13,9 +13,8 @@ function getQr(){
     if(url != ''){
         fetch('http://localhost:3000/api?url='+url)
         .then((data)=> data.json()).then(data => {
-            console.log(data)
             document.querySelector('#svg').innerHTML = '<img src=".'+data.url+'"/>'
-            path = data;
+            path = data.url;
         })
         document.querySelector('#qr-container').style.display = 'flex';
     }
