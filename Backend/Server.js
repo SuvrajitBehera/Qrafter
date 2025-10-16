@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import express from 'express'
-import {createWriteStream , readFile} from 'fs'
+import {createWriteStream , readFile,unlink,readdir} from 'fs'
 import {image} from 'qr-image'
 import {resolve , join} from 'path' 
 let imgCount = 0
@@ -51,3 +51,28 @@ app.get(api+'/download' , (req,res)=>{
     res.download(join(resolve(),file) , 'qr.svg')
 })
 app.listen(port,console.log(`server is live at ${port}`))
+// garbage cleaner
+function cleaner(){
+    setTimeout(()=>{
+        delFiles()
+        cleaner()
+    } , 60000)
+}
+function getFiles(){
+    return new Promise((res,rej)=>{
+        readdir('./data','utf8',(err,data)=>{
+            if(err) throw err
+            res(data)
+        })
+    })
+}
+function delFiles(){
+    getFiles().then((data)=>{
+        for(let i in data){
+            unlink('./data/'+data[i], (err)=>{
+                if(err) throw err
+            })
+        }
+    })
+}
+cleaner()
