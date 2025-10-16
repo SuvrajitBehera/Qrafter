@@ -56,7 +56,7 @@ function cleaner(){
     setTimeout(()=>{
         delFiles()
         cleaner()
-    } , 60000)
+    } , 1800000)
 }
 function getFiles(){
     return new Promise((res,rej)=>{
