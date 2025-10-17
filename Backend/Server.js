@@ -12,7 +12,7 @@ function createQR(URL){
         if(res){
             imgCount++;
             let qr_svg = image(URL,{type : 'svg'});
-            qr_svg.pipe(createWriteStream(join(dirname(__filename,'..'),'data','qr'+imgCount+'.svg')));
+            qr_svg.pipe(createWriteStream(join(resolve(__filename,'..'),'data','qr'+imgCount+'.svg')));
             res('qr'+imgCount+'.svg')
         }
         else{
@@ -24,7 +24,7 @@ function createQR(URL){
 function generateSvg(data){
     const imagePath = '/data/'
     app.get(imagePath+data , (req,res)=>{
-        res.sendFile(join(dirname(__filename,'..'),'data',data))
+        res.sendFile(join(resolve(__filename,'..'),'data',data))
     })
     return (imagePath+data)
     
