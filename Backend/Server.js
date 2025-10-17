@@ -2,11 +2,8 @@ import bodyParser from 'body-parser';
 import express from 'express'
 import {createWriteStream , readFile,unlink,readdir} from 'fs'
 import {image} from 'qr-image'
-import {resolve , join,dirname} from 'path' 
-import {fileURLToPath} from 'url'
+import {resolve , join} from 'path' 
 let imgCount = 0
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(resolve(__filename,'..'));
 function createQR(URL){
     return new Promise((res,rej)=>{
         if(res){
@@ -33,10 +30,10 @@ const app = express()
 const port = 3000;
 const api = '/api'
 app.use(bodyParser.urlencoded({extended:true}))
-app.use(express.static(join(__dirname,'Frontend','public')))
+app.use(express.static(join(resolve('..'),'Frontend','public')))
 
 app.get('/' ,(req,res)=>{
-    res.sendFile(join(__dirname,'Frontend','index.html'))
+    res.sendFile(join(resolve('..'),'Frontend','index.html'))
 })
 app.get(api,(req,res)=>{
     const url = req.query.url;
