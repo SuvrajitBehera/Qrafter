@@ -47,13 +47,13 @@ app.get(api,(req,res)=>{
     .then((data)=>{
         let imgData = {url: data}
         res.setHeader("Content-Type" , "application/json")
-        res.setHeader('Access-Control-Allow-Origin', 'https://qrafter.vercel.app/')
+        res.setHeader('Access-Control-Allow-Origin', 'https://qrafter.vercel.app')
         res.send(JSON.stringify(imgData))
     })
 })
 app.get(api+'/download' , (req,res)=>{
     let file = req.query.path
-    res.setHeader('Access-Control-Allow-Origin', 'https://qrafter.vercel.app/')
+    res.setHeader('Access-Control-Allow-Origin', 'https://qrafter.vercel.app')
     res.download(join(dirname(__filename,'..'),file) , 'qr.svg')
 })
 app.listen(port,console.log(`server is live at ${port}`))
