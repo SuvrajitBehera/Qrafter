@@ -4,6 +4,7 @@ import {createWriteStream , readFile,unlink,readdir} from 'fs'
 import {image} from 'qr-image'
 import {resolve , join,dirname} from 'path' 
 import {fileURLToPath} from 'url'
+import { error } from 'console';
 let imgCount = 0
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(resolve(__filename,'..'));
@@ -51,7 +52,7 @@ app.get(api,(req,res)=>{
 })
 app.get(api+'/download' , (req,res)=>{
     let file = req.query.path
-    res.download(join(resolve(),file) , 'qr.svg')
+    res.download(join(dirname(__filename,'..'),file) , 'qr.svg')
 })
 app.listen(port,console.log(`server is live at ${port}`))
 // garbage cleaner
