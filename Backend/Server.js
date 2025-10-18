@@ -64,8 +64,10 @@ function cleaner(){
 function getFiles(){
     return new Promise((res,rej)=>{
         readdir('./data','utf8',(err,data)=>{
-            if(err) throw err
-            res(data)
+            if(data !== undefined){
+                if(err) throw err
+                res(data)
+            }
         })
     })
 }
